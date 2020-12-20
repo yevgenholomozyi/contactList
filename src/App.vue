@@ -1,30 +1,88 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class='app'>
+    <Header />
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
+<script>
+import Header from './components/Header.vue';
+
+export default {
+  name: 'app',
+  components: {
+    Header,
+  },
+
+};
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  background-color: #948989;
+}
+
+.app {
+  width: 100%;
+  height: 100%;
+}
+
+.center {
   text-align: center;
-  color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
+.bold {
   font-weight: bold;
-  color: #2c3e50;
+}
+.modal {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 5px;
+  color: lightsalmon;
+  width: 40%;
+  min-height: 12rem;
+  font-size: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+@media only screen and (max-width: 55rem) {
+  .modal {
+    width: 65%;
+  }
+}
+@media only screen and (max-width: 38rem) {
+  .modal {
+    width: 85%;
+  }
+@media only screen and (max-height: 1180px) {
+  .modal {
+    min-height: 8rem;
+    font-size: 1.2rem;
+  }
+}
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.modal__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: .8rem;
+  width: 85%;
 }
 </style>
