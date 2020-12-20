@@ -29,6 +29,7 @@
         type="button"
         @click="onBack"
        />
+      <div class="modal__error">{{errorText}}</div>
     </div>
   </form>
 </template>
@@ -43,6 +44,9 @@ export default {
     Button,
     Input,
   },
+  data: () => ({
+    errorText: '',
+  }),
   computed: {
     ...mapGetters('contacts', ['contactById']),
   },
@@ -55,6 +59,10 @@ export default {
     onAdd(event) {
       const fieldName = event.target[0].value;
       const fieldValue = event.target[1].value;
+      if (!fieldName || !fieldValue) {
+        this.errorText = 'No empty inputs allowed';
+        return;
+      }
       const contactId = this.id;
       const newFieldArr = [];
       if (fieldName && fieldValue) {

@@ -2,11 +2,18 @@
   <div
     :class="[visibleState ? 'overlay' : 'overlay_hidden']"
   >
-    <ModalConfirm v-if="typeProp==='delete'" />
+    <ModalConfirm v-if="typeProp==='delete'" :deleteProp="deleteProp"/>
     <ModalConfirm
       v-if="typeProp==='rollback'"
-      question="Do realy want to rollback?"
+      question="Do you realy want to rollback?"
       actionProp="Rollback"
+    />
+    <ModalConfirm
+      v-if="typeProp==='delete-input'"
+      question="Do you realy want to delete this input"
+      actionProp="Delete Input"
+      :id="$route.params.id"
+      :fieldName="fieldName"
     />
     <ModalUpdate v-if="typeProp==='update'" :id="$route.params.id" />
     <ModalAdd v-if="typeProp==='add'" :id="$route.params.id" />
@@ -34,6 +41,8 @@ export default {
       type: String,
       required: true,
     },
+    fieldName: String,
+    deleteProp: String,
   },
 };
 </script>

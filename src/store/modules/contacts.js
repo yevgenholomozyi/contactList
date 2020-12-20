@@ -8,8 +8,10 @@ const {
   RUN_ROLLBACK,
   ROLLBACK_DELETE_ITEM,
   ROLLBACK_RETURN_ITEM,
+  REMOVE_CONTACT_FIELD,
   ROLLBACK_UPDATE,
   ROLLBACK_FIELD,
+  ROLLBACK_DELETED_FIELD,
 } = mutations;
 
 const contactStore = {
@@ -96,6 +98,25 @@ const contactStore = {
       state.rollbackStack = rollbackStackUpdated;
     },
 
+    [REMOVE_CONTACT_FIELD](state, value) {
+      const { contacts } = state;
+      const rollbackStackUpdated = state.rollbackStack.slice();
+      const { fieldName, id } = value;
+      rollbackStackUpdated.push({
+        type: ROLLBACK_DELETED_FIELD,
+        deletedFieldName: fieldName,
+        deletedFieldValue: contacts.find((c) => c.id === id)[fieldName],
+        id,
+      });
+      state.contacts = contacts.map((c) => {
+        if (c.id === id) {
+          delete c[fieldName];
+        }
+        return c;
+      });
+      state.rollbackStack = rollbackStackUpdated;
+    },
+
     [RUN_ROLLBACK](state) {
       const { contacts, rollbackStack } = state;
       const newContacts = contacts.slice();
@@ -124,11 +145,23 @@ const contactStore = {
           });
           state.rollbackStack = newRollbackStack;
           break;
+
         case ROLLBACK_FIELD:
           const { fieldName, id } = rollbackData;
           state.contacts = state.contacts.map((c) => {
             if (c.id === id) {
               delete c[fieldName];
+            }
+            return c;
+          });
+          state.rollbackStack = newRollbackStack;
+          break;
+
+        case ROLLBACK_DELETED_FIELD:
+          const { deletedFieldName, deletedFieldValue } = rollbackData;
+          state.contacts = state.contacts.map((c) => {
+            if (c.id === rollbackData.id) {
+              c[deletedFieldName] = deletedFieldValue;
             }
             return c;
           });
@@ -151,6 +184,9 @@ const contactStore = {
     },
     addContactField({ commit }, fieldArr) {
       commit('ADD_CONTACT_FIELD', fieldArr);
+    },
+    removeContactField({ commit }, removeData) {
+      commit('REMOVE_CONTACT_FIELD', removeData);
     },
     rollback({ commit }) {
       commit('RUN_ROLLBACK');

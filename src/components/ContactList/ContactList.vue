@@ -28,12 +28,12 @@ export default {
 </script>
 
 <style scoped>
-.contact-list {
-  margin: auto;
-  margin-bottom: 3rem;
-  width: 90%;
-  max-width: 60rem;
-  background-color: white;
-  border-radius: 6px;
-}
+  .contact-list {
+    margin: auto;
+    margin-bottom: 3rem;
+    width: 90%;
+    max-width: 60rem;
+    background-color: white;
+    border-radius: 6px;
+  }
 </style>
