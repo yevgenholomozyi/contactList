@@ -65,12 +65,12 @@ export default {
   props: {
     question: {
       type: String,
-      default: 'Do you realy want to delete this contact?',
+      default: 'Do you realy want to perform this action?',
       required: true,
     },
     actionProp: {
       type: String,
-      default: 'Delete',
+      default: 'Yes',
     },
     fieldName: String,
     deleteProp: String,

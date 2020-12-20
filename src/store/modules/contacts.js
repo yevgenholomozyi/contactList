@@ -108,12 +108,13 @@ const contactStore = {
         deletedFieldValue: contacts.find((c) => c.id === id)[fieldName],
         id,
       });
-      state.contacts = contacts.map((c) => {
+      const withDeletedInput = contacts.map((c) => {
         if (c.id === id) {
           delete c[fieldName];
         }
         return c;
       });
+      state.contacts = withDeletedInput;
       state.rollbackStack = rollbackStackUpdated;
     },
 

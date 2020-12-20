@@ -40,8 +40,8 @@
     <div class="contact-form__error">
       {{error}}
     </div>
+    <Overlay typeProp="rollback" />
   </form>
-  <Overlay typeProp="rollback" />
 </template>
 
 <script>
@@ -154,9 +154,6 @@ export default {
      .contact-form__button {
       width: 70%;
     }
-    /* .contact-form__button button {
-      width: 90%;
-    } */
   }
   @media only screen and (max-width: 23rem) {
     .contact-form__button button {
@@ -174,5 +171,5 @@ export default {
     .contact-form {
       height: 35rem;
     }
-}
+  }
 </style>

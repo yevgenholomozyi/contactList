@@ -62,7 +62,6 @@ export default {
     border-radius: 6px;
     color: lightsalmon;
   }
-
   .contact-list__item-elem {
     width: 100%;
     text-align: center;
